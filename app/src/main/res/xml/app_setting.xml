@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="WebDav 设置">
+        <EditTextPreference
+            android:key="web_dav_url"
+            android:singleLine="true"
+            android:summary="输入网址"
+            android:title="WebDav 网址" />
+        <EditTextPreference
+            android:key="web_dav_account"
+            android:singleLine="true"
+            android:summary="输入账号"
+            android:title="WebDav 账号" />
+        <EditTextPreference
+            android:key="web_dav_password"
+            android:singleLine="true"
+            android:summary="输入密码"
+            android:title="WebDav 密码" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="软件设置">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_backup"
+            android:summaryOff="关闭"
+            android:summaryOn="打开"
+            android:title="每次打开软件备份数据" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="关于">
+        <Preference
+            android:key="url"
+            android:singleLine="true"
+            android:title="作者"
+            android:summary="赵鹏飞" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com" />
+        </Preference>
+        <Preference
+            android:key="github"
+            android:singleLine="true"
+            android:title="开源地址"
+            android:summary="https://github.com" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com" />
+    </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>
