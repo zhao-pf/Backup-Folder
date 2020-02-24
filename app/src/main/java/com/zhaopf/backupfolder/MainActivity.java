@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         account = "1119101855@qq.com";
-        password = "advkadqn23gq7vkx ";
+        password = "aiyrhkkkxjnfq936";
         backupFilePath = "/storage/emulated/0/Apk提取目录/Test.apk";
         backupPath = "/storage/emulated/0/Apk提取目录/";
         backupName = "Test.apk";
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         //adapter = new RecyclerViewAdapder(items,MainActivity.this);
         //adapter.notifyDataSetChanged();
         //new com.zhaopf.backupfolder.verifyAccount(this).execute(account, password);
-
     }
 
     @Override
