@@ -2,6 +2,7 @@ package com.zhaopf.backupfolder;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.thegrizzlylabs.sardineandroid.Sardine;
 import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
@@ -15,16 +16,16 @@ import javax.security.auth.login.LoginException;
  * Created by 赵鹏飞 on 2020/2/23 15:21
  */
 public class verifyAccount extends AsyncTask<String,Void,Boolean> {
-    private com.zhaopf.backupfolder.listener.UploadBackup uploadBackup;
+    private com.zhaopf.backupfolder.listener.VerifyAccount uploadBackup;
     String TAG="verifyAccount.java---->";
-    public verifyAccount(MainActivity uploadBackup){
+    public verifyAccount(SettingsFragment uploadBackup){
         this.uploadBackup = uploadBackup;
     }
+
     @Override
     protected Boolean doInBackground(String... strings) {
         String account = strings[0];
         String password = strings[1];
-        //ZipUtil.pack(new File(backupPath),new File(backupZipPath));
         Sardine sardine = new OkHttpSardine();
         sardine.setCredentials(account, password);
         try {
@@ -41,8 +42,9 @@ public class verifyAccount extends AsyncTask<String,Void,Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
-        Log.e(TAG, aBoolean.toString() );
+    protected void onPostExecute(Boolean b) {
+        super.onPostExecute(b);
+        Log.e(TAG, b.toString() );
+        uploadBackup.upload(b);
     }
 }

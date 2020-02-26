@@ -3,12 +3,9 @@ package com.zhaopf.backupfolder;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +15,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.thegrizzlylabs.sardineandroid.DavResource;
-import com.thegrizzlylabs.sardineandroid.Sardine;
-import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
 import com.zhaopf.backupfolder.adapder.RecyclerViewAdapder;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +29,12 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     private String backupFilePath;
     private String backupName;
     private TextView tv_dir;
-    private List<String> items=new ArrayList<String>();
-    private List<String> backupItems=new ArrayList<String>();
+    private List<String> items = new ArrayList<String>();
+    private List<String> backupItems = new ArrayList<String>();
     private RecyclerView recyclerView;
     private RecyclerViewAdapder adapter;
     private File f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +46,17 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         backupName = "Test.apk";
         recyclerView = findViewById(R.id.rv_loaddir);
         tv_dir = findViewById(R.id.tv_dir);
-        adapter = new RecyclerViewAdapder(items,MainActivity.this);
+        adapter = new RecyclerViewAdapder(items, MainActivity.this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-
-       // new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(1), backupItems.get(1), account, password);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        // new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(1), backupItems.get(1), account, password);
 
         //adapter = new RecyclerViewAdapder(items,MainActivity.this);
         //adapter.notifyDataSetChanged();
         //new com.zhaopf.backupfolder.verifyAccount(this).execute(account, password);
+
     }
 
     @Override
@@ -113,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     @Override
     public void upload(boolean b) {
         if (b) {
-            Toast.makeText(this, "备份成功！", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "备份成功！", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "备份失败！", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "备份失败！", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -161,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     }
 
     public void getAll(View view) {
-        for (int i=0;i<backupItems.size();i++){
+        for (int i = 0; i < backupItems.size(); i++) {
             new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(i), backupItems.get(i), account, password);
             //new com.zhaopf.backupfolder.verifyAccount(this).execute(account, password);
         }
