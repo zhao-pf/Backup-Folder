@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     private MenuItem app_settings;
     private String account;
     private String password;
-    private String backupPath;
-    private String backupFilePath;
-    private String backupName;
     private TextView tv_dir;
     private List<String> items = new ArrayList<String>();
     private List<String> backupItems = new ArrayList<String>();
@@ -41,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         setContentView(R.layout.activity_main);
         account = "1119101855@qq.com";
         password = "aiyrhkkkxjnfq936";
-        backupFilePath = "/storage/emulated/0/Apk提取目录/Test.apk";
-        backupPath = "/storage/emulated/0/Apk提取目录/";
-        backupName = "Test.apk";
         recyclerView = findViewById(R.id.rv_loaddir);
         tv_dir = findViewById(R.id.tv_dir);
         adapter = new RecyclerViewAdapder(items, MainActivity.this);
@@ -51,12 +45,6 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        // new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(1), backupItems.get(1), account, password);
-
-        //adapter = new RecyclerViewAdapder(items,MainActivity.this);
-        //adapter.notifyDataSetChanged();
-        //new com.zhaopf.backupfolder.verifyAccount(this).execute(account, password);
-
     }
 
     @Override
@@ -91,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
                 getAllFile(f);
                 adapter.putData(items);
                 adapter.notifyDataSetChanged();
-
                 tv_dir.setText(directory.getAbsolutePath());
+
             }
 
             @Override
@@ -100,43 +88,8 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
 
             }
         });
-        //new com.zhaopf.backupfolder.UploadBackup(this).execute(backupPath, backupAPKPath, account, password);
         dialog.show(getFragmentManager(), "SimpleFileChooserDialog");
     }
-
-    @Override
-    public void upload(boolean b) {
-        if (b) {
-            Toast.makeText(MainActivity.this, "备份成功！", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(MainActivity.this, "备份失败！", Toast.LENGTH_LONG).show();
-        }
-    }
-
-//    public void getAll(View view) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Sardine sardine = new OkHttpSardine();
-//                sardine.setCredentials(account, password);
-//                List<DavResource> resources = null;
-//                try {
-//                    resources = sardine.list("https://dav.jianguoyun.com/BackUp/");//如果是目录一定别忘记在后面加上一个斜杠
-//                    for (DavResource res : resources) {
-//                        //listNames=listNames+res+"\n";
-//                        // Log.e("res.getName()", String.valueOf(res.getHref()));
-//                        // Log.e("res.getName()", res.getName());
-//                        if (res.isDirectory()) {
-//                            Log.e("目录有：", res.getName());
-//                        }
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//
-//                }
-//            }
-//        }).start();
-//    }
 
     public void getAllFile(File dir) {
         //遍历目录下的目录、文件
@@ -145,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
             if (f.isDirectory()) {
                 getAllFile(f);
             } else {
-                //如果是文件，直接打印
+                //如果是文件，添加名字和路径
                 items.add(f.getName());
                 backupItems.add(f.getPath());
 
@@ -159,5 +112,10 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
             new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(i), backupItems.get(i), account, password);
             //new com.zhaopf.backupfolder.verifyAccount(this).execute(account, password);
         }
+    }
+
+    @Override
+    public void upload(boolean b) {
+        Toast.makeText(this, b ? "上传成功！" : "上传失败", Toast.LENGTH_SHORT).show();
     }
 }

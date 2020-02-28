@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,13 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zhaopf.backupfolder.R;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 赵鹏飞 on 2020/2/18 11:32
+ * 适配器
  */
 public class RecyclerViewAdapder extends RecyclerView.Adapter<RecyclerViewAdapder.ViewHolder> {
 
@@ -51,6 +48,10 @@ public class RecyclerViewAdapder extends RecyclerView.Adapter<RecyclerViewAdapde
         return mName.length;
     }
 
+    public void putData(List<String> str) {
+        mName = str.toArray(new String[]{});
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_diritem;
 
@@ -58,8 +59,5 @@ public class RecyclerViewAdapder extends RecyclerView.Adapter<RecyclerViewAdapde
             super(itemView);
             tv_diritem = itemView.findViewById(R.id.tv_diritem);
         }
-    }
-    public void putData(List<String> str){
-        mName = str.toArray(new String[]{});
     }
 }
