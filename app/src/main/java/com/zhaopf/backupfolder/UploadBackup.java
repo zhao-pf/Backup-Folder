@@ -1,7 +1,6 @@
 package com.zhaopf.backupfolder;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.thegrizzlylabs.sardineandroid.Sardine;
 import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
@@ -22,19 +21,18 @@ public class UploadBackup extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... strings) {
         String backupName = strings[0];
         String backupFilePath = strings[1];
-        String account = strings[2];
-        String password = strings[3];
+        String davurl = strings[2];
+        String account = strings[3];
+        String password = strings[4];
         Sardine sardine = new OkHttpSardine();
         sardine.setCredentials(account, password);
         //ZipUtil.pack(new File(backupPath),new File(backupZipPath));
         try {
-            sardine.createDirectory("https://dav.jianguoyun.com/dav/" + "BackUp");
-            sardine.put("https://dav.jianguoyun.com/dav/BackUp/"+backupName,new File(backupFilePath),"application/x-www-form-urlencoded");
-            //noinspection ResultOfMethodCallIgnored
-            //new File(backupZipPath).delete();
+
+            sardine.createDirectory(davurl + "BackUp");
+            sardine.put(davurl + "BackUp/" + backupName, new File(backupFilePath), "application/x-www-form-urlencoded");
             return true;
         } catch (IOException e) {
-            Log.e("cw", "账号或密码错误" );
             e.printStackTrace();
             return false;
         }

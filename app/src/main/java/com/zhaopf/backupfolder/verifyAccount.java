@@ -1,7 +1,7 @@
 package com.zhaopf.backupfolder;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.thegrizzlylabs.sardineandroid.Sardine;
 import com.thegrizzlylabs.sardineandroid.impl.OkHttpSardine;
@@ -12,28 +12,26 @@ import java.io.IOException;
  * Created by 赵鹏飞 on 2020/2/23 15:21
  */
 public class verifyAccount extends AsyncTask<String, Void, Boolean> {
-    String TAG = "verifyAccount.java---->";
-    private com.zhaopf.backupfolder.listener.VerifyAccount uploadBackup;
+    private com.zhaopf.backupfolder.listener.VerifyAccount verify;
 
-    public verifyAccount(SettingsFragment uploadBackup) {
-        this.uploadBackup = uploadBackup;
+    public verifyAccount(com.zhaopf.backupfolder.listener.VerifyAccount verify) {
+        this.verify = verify;
     }
 
     @Override
     protected Boolean doInBackground(String... strings) {
-        String account = strings[0];
-        String password = strings[1];
+        String davurl = strings[0];
+        String account = strings[1];
+        String password = strings[2];
         Sardine sardine = new OkHttpSardine();
         sardine.setCredentials(account, password);
+
         try {
-            sardine.createDirectory("https://dav.jianguoyun.com/dav/" + "BackUp");
-            Log.e(TAG, "return true");
-            //noinspection ResultOfMethodCallIgnored
-            //new File(backupZipPath).delete();
+            sardine.createDirectory(davurl + "BackUp");
+
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG, "return false");
             return false;
         }
     }
@@ -41,7 +39,6 @@ public class verifyAccount extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean b) {
         super.onPostExecute(b);
-        Log.e(TAG, b.toString());
-        uploadBackup.upload(b);
+        verify.verify(b);
     }
 }

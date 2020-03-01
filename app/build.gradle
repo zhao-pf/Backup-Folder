@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.zhaopf.backupfolder"
         minSdkVersion 22
@@ -13,6 +13,7 @@ android {
     }
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -21,18 +22,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    //implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'  //
     //implementation 'androidx.preference:preference:1.1.0-alpha04'
     implementation 'moe.shizuku.preference:preference:3.0.0'
     implementation 'moe.shizuku.preference:preference-dialog-android:3.0.0'
-    implementation 'com.alibaba:fastjson:1.2.62'
+    //implementation 'com.alibaba:fastjson:1.2.66'
     implementation 'com.xiaosu:permission:1.0.0'
     implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.5'
     implementation 'org.zeroturnaround:zt-zip:1.14'
 
     testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    //androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'//
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'//
+    //implementation 'com.google.android.material:material:1.2.0-alpha05'
 }
