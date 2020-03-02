@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        account = "1119101855@qq.com";
-//        password = "aiyrhkkkxjnfq936";
         initView();//初始化
         adapderSet();//设置适配器
 

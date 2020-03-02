@@ -13,13 +13,15 @@ android {
     }
     buildTypes {
         release {
-            shrinkResources true
-            minifyEnabled true
+//            shrinkResources true
+//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            ndk {
-                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a" // 保留这三种架构的CPU
-            }
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -35,9 +37,9 @@ dependencies {
     implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.5'
     //implementation 'org.zeroturnaround:zt-zip:1.14'
 
-    testImplementation 'junit:junit:4.13'
+    //testImplementation 'junit:junit:4.13'
     //androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'//
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'//
     implementation 'androidx.recyclerview:recyclerview:1.1.0'//
     //implementation 'com.google.android.material:material:1.2.0-alpha05'
 }

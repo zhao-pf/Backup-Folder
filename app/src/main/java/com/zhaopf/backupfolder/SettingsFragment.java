@@ -73,12 +73,15 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         SharedPreferences sp = Objects.requireNonNull(getContext()).getSharedPreferences("settings", MODE_PRIVATE);
-        String webDavUrl = getContext().getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_url", "");
+        String webDavUrl = sp.getString("web_dav_url", "");
         String account = sp.getString("web_dav_account", "");
         String password = sp.getString("web_dav_password", "");
         switch (key) {
             case "web_dav_url":
                 web_dav_url.setSummary(sp.getString("web_dav_url", String.valueOf(R.string.default_webdav_url)));
+                if (password.length() != 0||account.length() != 0) {
+                        new com.zhaopf.backupfolder.verifyAccount(this).execute(webDavUrl, et_account.getText(), et_password.getText());
+                }
                 break;
             case "web_dav_account":
                 if (sp.getString("web_dav_password", "") != "") {
