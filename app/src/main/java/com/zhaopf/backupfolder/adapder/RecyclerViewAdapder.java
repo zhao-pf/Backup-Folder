@@ -21,7 +21,7 @@ import java.util.List;
 public class RecyclerViewAdapder extends RecyclerView.Adapter<RecyclerViewAdapder.ViewHolder> {
 
     private String[] mName;
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     public RecyclerViewAdapder(List<String> str, Context mContext) {
         mName = str.toArray(new String[]{});
@@ -51,7 +51,7 @@ public class RecyclerViewAdapder extends RecyclerView.Adapter<RecyclerViewAdapde
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_diritem;
+        final TextView tv_diritem;
         ViewHolder(View itemView) {
             super(itemView);
             tv_diritem = itemView.findViewById(R.id.tv_diritem);

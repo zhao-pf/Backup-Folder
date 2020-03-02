@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class UploadBackup extends AsyncTask<String, Void, Boolean> {
+class UploadBackup extends AsyncTask<String, Void, Boolean> {
 
-    private com.zhaopf.backupfolder.listener.UploadBackup uploadBackup;
+    private final com.zhaopf.backupfolder.listener.UploadBackup uploadBackup;
 
     public UploadBackup(MainActivity uploadBackup) {
         this.uploadBackup = uploadBackup;

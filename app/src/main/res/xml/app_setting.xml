@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress DeprecatedClassUsageInspection -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="WebDav 设置">
         <EditTextPreference
@@ -26,23 +27,27 @@
             android:title="每次打开软件备份数据" />
     </PreferenceCategory>
     <PreferenceCategory android:title="关于">
+
+
+        <Preference
+            android:key="more"
+            android:singleLine="true"
+            android:summary="点击打开"
+            android:title="作者的话"/>
         <Preference
             android:key="url"
             android:singleLine="true"
             android:title="作者"
-            android:summary="赵鹏飞" >
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com" />
-        </Preference>
-        <Preference
-            android:key="github"
-            android:singleLine="true"
-            android:title="开源地址"
-            android:summary="https://github.com" >
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com" />
-    </Preference>
+            android:summary="赵鹏飞" />
+<!--        <Preference-->
+
+<!--            android:key="github"-->
+<!--            android:singleLine="true"-->
+<!--            android:summary="https://github.com"-->
+<!--            android:title="开源地址">-->
+<!--            <intent-->
+<!--                android:action="android.intent.action.VIEW"-->
+<!--                android:data="https://github.com" />-->
+<!--        </Preference>-->
     </PreferenceCategory>
 </PreferenceScreen>

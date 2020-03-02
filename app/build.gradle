@@ -1,21 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.zhaopf.backupfolder"
         minSdkVersion 22
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            shrinkResources false
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a" // 保留这三种架构的CPU
+            }
         }
     }
 }
@@ -28,9 +31,9 @@ dependencies {
     implementation 'moe.shizuku.preference:preference:3.0.0'
     implementation 'moe.shizuku.preference:preference-dialog-android:3.0.0'
     //implementation 'com.alibaba:fastjson:1.2.66'
-    implementation 'com.xiaosu:permission:1.0.0'
+    //implementation 'com.xiaosu:permission:1.0.0'
     implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.5'
-    implementation 'org.zeroturnaround:zt-zip:1.14'
+    //implementation 'org.zeroturnaround:zt-zip:1.14'
 
     testImplementation 'junit:junit:4.13'
     //androidTestImplementation 'androidx.test:runner:1.2.0'

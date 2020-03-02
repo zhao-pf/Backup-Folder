@@ -1,6 +1,5 @@
 package com.zhaopf.backupfolder;
 
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.thegrizzlylabs.sardineandroid.Sardine;
@@ -11,8 +10,8 @@ import java.io.IOException;
 /**
  * Created by 赵鹏飞 on 2020/2/23 15:21
  */
-public class verifyAccount extends AsyncTask<String, Void, Boolean> {
-    private com.zhaopf.backupfolder.listener.VerifyAccount verify;
+class verifyAccount extends AsyncTask<String, Void, Boolean> {
+    private final com.zhaopf.backupfolder.listener.VerifyAccount verify;
 
     public verifyAccount(com.zhaopf.backupfolder.listener.VerifyAccount verify) {
         this.verify = verify;

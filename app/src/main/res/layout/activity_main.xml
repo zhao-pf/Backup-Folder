@@ -24,14 +24,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="登录状态:    " />
+                android:text="@string/login_state" />
 
             <TextView
                 android:id="@+id/loginResult"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="检测中....." />
+                android:text="@string/checking" />
 
         </LinearLayout>
         <LinearLayout
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="备份状态:    " />
+                android:text="@string/backup_state" />
 
             <TextView
                 android:id="@+id/backupQuantity"
@@ -68,7 +68,7 @@
                 android:id="@+id/tv_dir2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="备份目录:    "
+                android:text="@string/backup_dir"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="请选择目录" />
+                android:text="@string/dir_choice" />
 
         </LinearLayout>
 
@@ -96,7 +96,7 @@
         android:id="@+id/getPermission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取权限"
+        android:text="@string/get_permission"
         app:layout_constraintBottom_toTopOf="@+id/bt_getDir" />
 
     <Button
@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="backupDir"
-        android:text="选择备份目录"
+        android:text="@string/choice_backup_dir"
         app:layout_constraintBottom_toTopOf="@+id/bt_upload"
         tools:layout_editor_absoluteX="34dp" />
 
@@ -119,7 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="getAll"
-        android:text="手动上传"
+        android:text="@string/manual_upload"
         android:layout_marginBottom="34dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 

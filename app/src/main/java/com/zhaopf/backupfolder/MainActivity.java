@@ -27,22 +27,23 @@ import com.zhaopf.backupfolder.adapder.RecyclerViewAdapder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements com.zhaopf.backupfolder.listener.UploadBackup, com.zhaopf.backupfolder.listener.VerifyAccount {
     //请求状态码
     private static final int PERMISSION_REQUEST_CODE = 1; //权限请求码
     //读写权限
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private final List<String> items = new ArrayList<>();
+    private final List<String> backupItems = new ArrayList<>();
     private MenuItem app_settings;
     private String account;
     private String password;
     private String webDavUrl;
     private String source;
     private TextView tv_dir;
-    private List<String> items = new ArrayList<String>();
-    private List<String> backupItems = new ArrayList<String>();
     private RecyclerView recyclerView;
     private RecyclerViewAdapder adapter;
     private File f;
@@ -58,9 +59,10 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
     @Override
     protected void onStart() {
         super.onStart();
-        webDavUrl = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_url", "https://dav.jianguoyun.com/dav/");
-        account = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_account", "");
-        password = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_password", "");
+        SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
+        webDavUrl = sp.getString("web_dav_url", getString(R.string.default_webdav_url));
+        account = sp.getString("web_dav_account", "");
+        password = sp.getString("web_dav_password", "");
 
         verifyAccount();
     }
@@ -100,14 +102,13 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
             getAllFile(f);
             adapter.putData(items);
             adapter.notifyDataSetChanged();
-            btGetDir.setText("更换备份目录");
             if (switch_backup) {
                 for (int i = 0; i < backupItems.size(); i++) {
                     new com.zhaopf.backupfolder.UploadBackup(this).execute(items.get(i), backupItems.get(i), webDavUrl, account, password);
                 }
             }
         } else {
-            btGetDir.setText("选择备份目录");
+            btGetDir.setText(R.string.choice_backup_dir);
         }
     }
 
@@ -127,14 +128,15 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         btGetDir = findViewById(R.id.bt_getDir);
         btUpload = findViewById(R.id.bt_upload);
         backupQuantity = findViewById(R.id.backupQuantity);
-        switch_backup = getSharedPreferences("settings", MODE_PRIVATE).getBoolean("switch_backup", false);
-        source = getSharedPreferences("settings", MODE_PRIVATE).getString("source", "");
-        webDavUrl = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_url", "https://dav.jianguoyun.com/dav/");
-        account = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_account", "");
-        password = getSharedPreferences("settings", MODE_PRIVATE).getString("web_dav_password", "");
-        SharedPreferences.Editor sp = getSharedPreferences("settings", MODE_PRIVATE).edit();
-        sp.putString("web_dav_url", "https://dav.jianguoyun.com/dav/");
-        sp.apply();
+        SharedPreferences sp = getSharedPreferences("settings", MODE_PRIVATE);
+        switch_backup = sp.getBoolean("switch_backup", false);
+        source = sp.getString("source", "");
+        webDavUrl = sp.getString("web_dav_url", String.valueOf(R.string.default_webdav_url));
+        account = sp.getString("web_dav_account", "");
+        password = sp.getString("web_dav_password", "");
+        SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
+        editor.putString("web_dav_url", getString(R.string.default_webdav_url));
+        editor.apply();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS_STORAGE, PERMISSION_REQUEST_CODE);
@@ -150,13 +152,13 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //授权
                     havaPermissions = 1;
-                    Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.authorization_success, Toast.LENGTH_SHORT).show();
                     getPermission.setVisibility(View.GONE);
                     verifyAccount();
                 } else {
                     //未授权
                     havaPermissions = 0;
-                    Toast.makeText(MainActivity.this, "未获得存储权限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.not_hava_store_permissions, Toast.LENGTH_SHORT).show();
                     btGetDir.setEnabled(false);
                     btUpload.setEnabled(false);
                     getPermission.setVisibility(View.VISIBLE);
@@ -205,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         dialog.setOnChosenListener(new SimpleFileChooser.SimpleFileChooserListener() {
             @Override
             public void onFileChosen(File file) {
-                Toast.makeText(MainActivity.this, " 请选择一个目录 ", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.choice_backup_dir, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -232,9 +234,9 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
         dialog.show(getFragmentManager(), "SimpleFileChooserDialog");
     }
 
-    public void getAllFile(File dir) {
+    private void getAllFile(File dir) {
         //遍历目录下的目录、文件
-        for (File f : dir.listFiles()) {
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
             //如果是目录，继续遍历
             if (f.isDirectory()) {
                 getAllFile(f);
@@ -261,13 +263,13 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
             quantity++;
             backupQuantity.setText("已成功备份" + quantity + "个文件");
         } else {
-            backupQuantity.setText("上传失败!");
+            backupQuantity.setText(R.string.upload_failed);
         }
     }
 
     @Override
     public void verify(boolean b) {
-        loginResult.setText(b ? "登录成功！" : "登录失败");
+        loginResult.setText(b ? getString(R.string.login_success) : getString(R.string.login_failed));
         if (b) {
             if (havaPermissions == 1) {
                 btGetDir.setEnabled(true);
@@ -278,4 +280,5 @@ public class MainActivity extends AppCompatActivity implements com.zhaopf.backup
             btUpload.setEnabled(false);
         }
     }
+
 }
