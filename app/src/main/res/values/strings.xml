@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">备份文件夹</string>
-    <string name="backup_dddir">备份目录:</string>
+    <string name="backup_dir">备份目录:</string>
     <string name="dir_choice">请选择目录</string>
     <string name="get_permission">获取权限</string>
     <string name="choice_backup_dir">选择备份目录</string>

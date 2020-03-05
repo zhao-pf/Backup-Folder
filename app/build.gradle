@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    apply plugin: 'mtj-circle-plugin'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'  //
@@ -42,4 +43,13 @@ dependencies {
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'//
     implementation 'androidx.recyclerview:recyclerview:1.1.0'//
     //implementation 'com.google.android.material:material:1.2.0-alpha05'
+
+}
+MtjCirclePluginConfig {
+    // 设置appkey
+    appkey = '82b98da631'
+    // 设置debug 开关，如果需要查看日志则打开开关，为避免影响性能建议上线前关闭（设置为false）
+    debug = false
+    // 默认启动此插件，如果开发者不需要可以禁用（设置为false）
+    enabled = true
 }
